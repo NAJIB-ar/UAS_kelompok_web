@@ -1,6 +1,6 @@
-## UAS_kelompok_webfullstack
+# UAS_kelompok_webfullstack
 ---
-# Ketua Najib
+## Ketua Najib
 1. NOVAN
 2. BAGOS
 3. ALDI
