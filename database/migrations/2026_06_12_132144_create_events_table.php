@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('description');
+            $table->string('location');
+            $table->dateTime('event_date');
+            $table->integer('price'); // Harga tiket
+            $table->integer('ticket_quantity'); // stok tiket tersedia
+            $table->string('image')->nullable(); // Path foto banner event
             $table->timestamps();
         });
     }
