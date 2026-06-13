@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title'); 
+            $table->string('speaker');
+            $table->string('category'); 
+            $table->enum('type', ['online', 'offline'])->default('online');
             $table->text('description');
-            $table->string('location');
+            $table->string('location'); 
             $table->dateTime('event_date');
-            $table->integer('price'); // Harga tiket
-            $table->integer('ticket_quantity'); // stok tiket tersedia
-            $table->string('image')->nullable(); // Path foto banner event
+            $table->integer('price'); 
+            $table->integer('ticket_quantity'); 
+            $table->string('image')->nullable(); 
             $table->timestamps();
         });
     }
