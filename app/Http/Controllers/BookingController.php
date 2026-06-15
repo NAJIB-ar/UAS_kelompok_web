@@ -45,7 +45,7 @@ class BookingController extends Controller
         // data booking baru
         Booking::create([
             'user_id' => Auth::id(),
-            'event_id' => $event->id(),
+            'event_id' => $event->id,
             'ticket_code' => 'SEM-' . strtoupper(Str::random(8)), // Generate kode
             'quantity_purchased' => $request->quantity,
             'total_price' => $totalPrice,
