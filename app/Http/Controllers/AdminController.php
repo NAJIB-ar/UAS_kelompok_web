@@ -7,35 +7,35 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    // Menampilkan halaman dashboard admin (List semua transaksi)
+    // halaman dashboard admin
     public function dashboard()
     {
-        // Mengambil semua data booking beserta relasi user dan event, diurutkan dari yang terbaru
+        // Mengambil semua data booking
         $bookings = Booking::with(['user', 'event'])->latest()->get();
         
         return view('admin.dashboard', compact('bookings'));
     }
 
-    // Fungsi untuk menyetujui pembayaran
-    public function approve($id)
+    // menyetujui pembayaran
+    public function approve(int $id)
     {
         $booking = Booking::findOrFail($id);
         
-        // Ubah status menjadi approved
+        // Ubah status approved
         $booking->update(['status' => 'approved']);
 
         return back()->with('success', 'Pembayaran berhasil diverifikasi. Tiket telah diaktifkan.');
     }
 
-    // Fungsi untuk menolak pembayaran (misal: bukti transfer palsu/tidak valid)
-    public function reject($id)
+    // menolak pembayaran
+    public function reject(int $id)
     {
         $booking = Booking::findOrFail($id);
         
-        // Ubah status menjadi rejected
+        // Ubah status rejected
         $booking->update(['status' => 'rejected']);
 
-        // Mengembalikan kuota tiket ke tabel event karena pembelian dibatalkan
+        // Mengembalikan kuota tiket
         $booking->event->increment('ticket_quantity', $booking->quantity_purchased);
 
         return back()->with('error', 'Pembayaran ditolak. Kuota tiket telah dikembalikan.');

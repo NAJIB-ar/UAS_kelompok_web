@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9" />
+                        <x-application-logo class="block h-14 w-auto fill-current text-gray-800 rounded" />
                     </a>
                 </div>
 
@@ -25,6 +25,9 @@
                     @if (auth()->user()->role === 'admin')
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                             Panel Admin
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.events.index')" :active="request()->routeIs('admin.events.*')">
+                            Kelola Seminar
                         </x-nav-link>
                     @endif
                 </div>
@@ -92,6 +95,9 @@
             @if (auth()->user()->role === 'admin')
                 <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                     Panel Admin
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.events.index')" :active="request()->routeIs('admin.events.*')">
+                    Kelola Seminar
                 </x-responsive-nav-link>
             @endif
         </div>

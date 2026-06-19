@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminEventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\BookingController;
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::post('/booking/{id}/approve', [AdminController::class, 'approve'])->name('booking.approve');
     Route::post('/booking/{id}/reject', [AdminController::class, 'reject'])->name('booking.reject');
+    Route::resource('events', AdminEventController::class);
     
 });
 
