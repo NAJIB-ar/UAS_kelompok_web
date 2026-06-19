@@ -38,7 +38,6 @@
                             <tr class="hover:bg-gray-50 transition">
                                 <td class="py-3 px-4 border-b">{{ $booking->created_at->format('d M Y H:i') }}</td>
                                 <td class="py-3 px-4 border-b font-semibold">{{ $booking->user->name }}</td>
-                                <td class="py-3 px-4 border-b">{{ $booking->event->title }}<br><span class="text-xs text-gray-500">Qty: {{ $booking->quantity_purchased }} tiket</span></td>
                                 <td class="py-3 px-4 border-b">
                                     Rp {{ number_format($booking->total_price, 0, ',', '.') }}<br>
                                     @if($booking->payment_proof)

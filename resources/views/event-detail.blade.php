@@ -18,11 +18,6 @@
                 
                 <form action="{{ route('booking.store', $event->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                     @csrf
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Jumlah Tiket</label>
-                        <input type="number" name="quantity" min="1" max="{{ $event->ticket_quantity }}" value="1" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    </div>
-
                     <div class="p-3 text-sm text-yellow-800 border border-yellow-200 rounded bg-yellow-50">
                         <strong>Metode Pembayaran:</strong> Transfer Bank Mandiri 123-45678-90 a.n Rektorat Kampus Hub.
                     </div>

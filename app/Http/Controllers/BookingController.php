@@ -32,7 +32,6 @@ class BookingController extends Controller
 
         // Validasi input user
         $request->validate([
-            'quantity' => 'required|integer|min:1|max:' . $event->ticket_quantity,
             'payment_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -40,20 +39,20 @@ class BookingController extends Controller
         $path = $request->file('payment_proof')->store('payment_proofs', 'public');
 
         // Hitung total harga
-        $totalPrice = $event->price * $request->quantity;
+        $totalPrice = $event->price;
 
         // data booking baru
         Booking::create([
             'user_id' => Auth::id(),
             'event_id' => $event->id,
             'ticket_code' => 'SEM-' . strtoupper(Str::random(8)), // Generate kode
-            'quantity_purchased' => $request->quantity,
+            'quantity_purchased' => 1,
             'total_price' => $totalPrice,
             'payment_proof' => $path,
             'status' => 'pending', 
         ]);
 
-        $event->decrement('ticket_quantity', $request->quantity);
+        $event->decrement('ticket_quantity', 1);
 
         return redirect()->route('booking.index')->with('success', 'Bukti pembayaran berhasil diunggah. Menunggu verifikasi admin.');
     }
