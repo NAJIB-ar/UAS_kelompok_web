@@ -1,4 +1,4 @@
-<x-app-layout>
+<!-- <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             Kelola Data Seminar
@@ -35,7 +35,7 @@
                     <tbody class="text-sm text-gray-700">
                         @forelse($events as $event)
                             <tr class="transition hover:bg-gray-50">
-                                <td class="px-4 py-3 border-b font-semibold">{{ $event->title }}<br><span class="text-xs text-gray-500">{{ $event->category }} | {{ $event->type }}</span></td>
+                                <td class="px-4 py-3 font-semibold border-b">{{ $event->title }}<br><span class="text-xs text-gray-500">{{ $event->category }} | {{ $event->type }}</span></td>
                                 <td class="px-4 py-3 border-b">{{ \Carbon\Carbon::parse($event->event_date)->format('d M Y, H:i') }}</td>
                                 <td class="px-4 py-3 border-b">{{ $event->ticket_quantity }}</td>
                                 <td class="px-4 py-3 border-b">Rp {{ number_format($event->price, 0, ',', '.') }}</td>
@@ -59,4 +59,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> -->

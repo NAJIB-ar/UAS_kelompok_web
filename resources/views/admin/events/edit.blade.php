@@ -1,11 +1,11 @@
-<x-app-layout>
+<!-- <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             Edit Seminar: {{ $event->title }}
         </h2>
     </x-slot>
 
-    <div class="py-12 mx-auto max-w-4xl sm:px-6 lg:px-8">
+    <div class="max-w-4xl py-12 mx-auto sm:px-6 lg:px-8">
         <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-md">
             
             <form action="{{ route('admin.events.update', $event->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
@@ -76,4 +76,4 @@
 
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> -->

@@ -1,4 +1,4 @@
-<x-app-layout>
+<!-- <x-app-layout>
     <div class="max-w-4xl py-12 mx-auto sm:px-6 lg:px-8">
         <div class="p-6 bg-white border border-gray-200 rounded-lg shadow-md">
             <h1 class="text-3xl font-bold text-gray-900">{{ $event->title }}</h1>
@@ -34,4 +34,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> -->
