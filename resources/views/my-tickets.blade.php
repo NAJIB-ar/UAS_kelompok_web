@@ -1,4 +1,4 @@
-<!-- <x-app-layout>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             Tiket Saya
@@ -26,39 +26,59 @@
                     </a>
                 </div>
             @else
-                <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
                     @foreach($bookings as $booking)
-                        <div class="relative p-6 transition duration-300 border border-gray-200 rounded-xl bg-gray-50 hover:shadow-lg hover:shadow-indigo-500/20">
+                        <div class="relative flex flex-col justify-between overflow-hidden transition duration-300 border border-gray-200 md:flex-row rounded-2xl bg-gray-50 hover:shadow-xl hover:shadow-indigo-500/10">
                             
-                            <div class="absolute top-4 right-4">
-                                @if($booking->status === 'pending')
-                                    <span class="px-3 py-1 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded-full">Menunggu Verifikasi</span>
-                                @elseif($booking->status === 'approved')
-                                    <span class="px-3 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">Berhasil</span>
-                                @else
-                                    <span class="px-3 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full">Ditolak</span>
-                                @endif
+                            <div class="flex-1 p-6 flex flex-col justify-between">
+                                <div>
+                                    <div class="mb-3">
+                                        @if($booking->status === 'pending')
+                                            <span class="px-2.5 py-0.5 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded-full">Menunggu Verifikasi</span>
+                                        @elseif($booking->status === 'approved')
+                                            <span class="px-2.5 py-0.5 text-xs font-semibold text-green-800 bg-green-100 rounded-full">Terverifikasi</span>
+                                        @else
+                                            <span class="px-2.5 py-0.5 text-xs font-semibold text-red-800 bg-red-100 rounded-full">Ditolak</span>
+                                        @endif
+                                    </div>
+
+                                    <p class="text-xs font-bold tracking-widest text-indigo-600 uppercase">{{ $booking->ticket_code }}</p>
+                                    <h2 class="mt-1 text-xl font-bold text-gray-900 line-clamp-2 leading-tight">{{ $booking->event->title }}</h2>
+                                </div>
+
+                                <div class="pt-4 mt-6 space-y-1.5 text-xs text-gray-600 border-t border-gray-200">
+                                    <div class="flex justify-between">
+                                        <span>Nama Pengguna:</span>
+                                        <span class="font-semibold text-gray-900">{{ Auth::user()->name }}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Tanggal Pesan:</span>
+                                        <span class="font-medium text-gray-900">{{ $booking->created_at->format('d M Y') }}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Total Bayar:</span>
+                                        <span class="font-bold text-indigo-600 text-sm">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</span>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="pr-24 mb-4">
-                                <p class="text-xs font-bold tracking-wider text-indigo-600 uppercase">{{ $booking->ticket_code }}</p>
-                                <h2 class="mt-1 text-lg font-bold text-gray-900 line-clamp-2">{{ $booking->event->title }}</h2>
+                            <div class="hidden md:flex flex-col justify-between items-center py-2 w-1 relative">
+                                <div class="w-4 h-4 bg-white border-b border-r border-gray-200 rounded-full -mt-4 -mr-4 transform rotate-45"></div>
+                                <div class="h-full border-l-2 border-dashed border-gray-300 my-2"></div>
+                                <div class="w-4 h-4 bg-white border-t border-l border-gray-200 rounded-full -mb-4 -ml-4 transform rotate-45"></div>
                             </div>
 
-                            <div class="pt-4 space-y-2 text-sm text-gray-600 border-t border-gray-200">
-                                <p class="flex justify-between">
-                                    <span>Total Harga:</span>
-                                    <span class="font-medium text-gray-900">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</span>
-                                </p>
-                                <p class="flex justify-between">
-                                    <span>Tanggal Pesan:</span>
-                                    <span class="font-medium text-gray-900">{{ $booking->created_at->format('d M Y') }}</span>
-                                </p>
+                            <div class="flex flex-col items-center justify-center p-6 bg-gray-100/70 border-t-2 border-dashed md:border-t-0 md:border-l border-gray-200 text-center md:w-44 min-w-[170px]">
+                                <div class="p-2 bg-white rounded-xl border border-gray-200 shadow-sm">
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{ $booking->ticket_code }}" alt="QR Code" class="w-24 h-24">
+                                </div>
+                                <p class="text-[10px] font-mono text-gray-400 mt-2 tracking-widest">SCAN REGISTRASI</p>
                             </div>
+
                         </div>
                     @endforeach
                 </div>
             @endif
         </div>
     </div>
-</x-app-layout> -->
+</x-app-layout>
