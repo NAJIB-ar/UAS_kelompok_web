@@ -52,14 +52,12 @@
                         <select
                             name="type"
                             class="block w-full mt-1 border-gray-300 rounded-md">
-                            <option value="online"
-                                {{ $event->type=='online' ? 'selected' : '' }}>
-                                Online
+                            <option value="online" {{ $event->type=='online' ? 'selected' : '' }}>
+                                Online (Zoom/Meet)
                             </option>
-                            
-                            <option value="offline"
-                                {{ $event->type=='offline' ? 'selected' : '' }}>
-                                Offline
+
+                            <option value="offline" {{ $event->type=='offline' ? 'selected' : '' }}>
+                                Offline (Tatap Muka)
                             </option>
                         </select>
                     </div>
@@ -127,10 +125,10 @@
                         Biarkan kosong jika tidak ingin mengubah gambar.
                     </p>
                 </div>
-                <div class="flex justify-between mt-8">
+                <div class="flex justify-end mt-8">
 
                     <!-- DELETE -->
-                    <form
+                    {{-- <form
                         action="{{ route('admin.events.destroy', $event->id) }}"
                         method="POST"
                         onsubmit="return confirm('Yakin ingin menghapus seminar ini?')">
@@ -141,7 +139,7 @@
                             class="px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700">
                             Hapus
                         </button>
-                    </form>
+                    </form> --}}
                     
                     <!-- UPDATE -->
                     <div>
