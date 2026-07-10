@@ -1,66 +1,145 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Dokumentasi Proyek: Academic Seminar (Event Ticketing System)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi ini adalah platform direktori dan pemesanan tiket seminar akademik yang memungkinkan pengguna mencari seminar, membeli tiket, serta memfasilitasi admin untuk mengelola acara dan memverifikasi pembayaran.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 1. Bahasa Pemrograman yang Digunakan
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **PHP**: Sebagai bahasa pemrograman utama di sisi _server_ (Backend).
+- **JavaScript**: Digunakan untuk interaktivitas di sisi klien.
+- **HTML5 & CSS3**: Untuk markup dan styling struktur antarmuka pengguna.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 2. Framework dan Library
 
-## Learning Laravel
+- **Laravel**: Framework PHP utama yang menangani _Routing_, _Controller_, _Database ORM (Eloquent)_, dan _Authentication_.
+- **Tailwind CSS**: Framework CSS _utility-first_ untuk mendesain antarmuka secara responsif, cepat, dan modern.
+- **Alpine.js**: Library JavaScript ringan (terbawa dari ekosistem Laravel Breeze) untuk menangani _state_ interaktif sederhana seperti _dropdown_ menu navigasi.
+- **Vite**: _Build tool_ (bundler) yang digunakan untuk mengkompilasi _asset_ CSS dan JavaScript.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 3. Routes dan API
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Internal Routes (`routes/web.php`)**:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    **Rute Publik & Autentikasi**
+    - `GET /` : Secara otomatis mengarahkan pengunjung (redirect) ke halaman login.
+    - _Rute Auth bawaan Laravel_ : Mengelola pendaftaran (`/register`), masuk (`/login`), dan keluar (`/logout`).
 
-## Laravel Sponsors
+    **Rute Partisipan / Pengguna (Akses Terbatas: `auth`, `verified`)**
+    - `GET /dashboard` : Menampilkan halaman katalog
+    - `GET /event/{id}` : Menampilkan halaman rincian seminar
+    - `POST /event/{id}/book` : _Endpoint_ untuk memproses unggahan bukti bayar dan registrasi seminar.
+    - `GET /my-tickets` : Menampilkan halaman "Tiket Saya"
+    - `GET, PATCH, DELETE /profile` : _Endpoint_ pengelolaan profil pengguna.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    **Rute Admin (Akses Terbatas: `auth`, `admin`)**
+    - `GET /admin/dashboard` : Halaman utama untuk administrator.
+    - `POST /admin/booking/{id}/approve` : _Endpoint_ verifikasi bukti bayar pengguna.
+    - `POST /admin/booking/{id}/reject` : _Endpoint_ menolak bukti bayar pengguna.
+    - `Rute Resource /admin/events` : Menyediakan seperangkat _endpoint_ CRUD seminar/acara.
 
-### Premium Partners
+- **External API (Third-party)**: Menggunakan layanan API pihak ketiga, yaitu **goqr.me** (`https://api.qrserver.com/v1/create-qr-code/`) untuk merender gambar QR Code secara langsung (on-the-fly) berdasarkan kode registrasi tiket.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## 4. Database yang Digunakan
 
-## Contributing
+Sistem menggunakan Relational Database Management System (RDBMS) yang terintegrasi penuh melalui Laravel Eloquent.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Struktur tabel:
 
-## Code of Conduct
+### Tabel `users`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Kolom               | Tipe Data             |
+| :------------------ | :-------------------- |
+| `id`                | bigint (Primary Key)  |
+| `name`              | varchar               |
+| `email`             | varchar (Unique)      |
+| `email_verified_at` | timestamp (Nullable)  |
+| `password`          | varchar               |
+| `role`              | enum('user', 'admin') |
+| `remember_token`    | varchar               |
+| `timestamps`        | timestamp             |
 
-## Security Vulnerabilities
+### Tabel `events`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+| Kolom             | Tipe Data                 |
+| :---------------- | :------------------------ |
+| `id`              | bigint (Primary Key)      |
+| `title`           | varchar                   |
+| `speaker`         | varchar                   |
+| `category`        | varchar                   |
+| `type`            | enum('online', 'offline') |
+| `description`     | text                      |
+| `location`        | varchar                   |
+| `event_date`      | datetime                  |
+| `price`           | integer                   |
+| `ticket_quantity` | integer                   |
+| `image`           | varchar (Nullable)        |
+| `timestamps`      | timestamp                 |
 
-## License
+### Tabel `bookings`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+| Kolom                | Tipe Data                               |
+| :------------------- | :-------------------------------------- |
+| `id`                 | bigint (Primary Key)                    |
+| `user_id`            | bigint (Foreign Key)                    |
+| `event_id`           | bigint (Foreign Key)                    |
+| `ticket_code`        | varchar (Unique)                        |
+| `quantity_purchased` | integer                                 |
+| `total_price`        | integer                                 |
+| `payment_proof`      | varchar (Nullable)                      |
+| `status`             | enum('pending', 'approved', 'rejected') |
+| `timestamps`         | timestamp                               |
+
+## 5. Proses Instalasi Awal
+
+Menjalankan proyek di _environment_ lokal:
+
+```bash
+# 1. Clone repository
+# 2. Instalasi dependensi PHP
+composer install
+
+# 3. Instalasi dependensi NPM
+npm install
+
+# 4. Salin pengaturan environment
+cp .env.example .env
+
+# 5. Generate Application Key
+php artisan key:generate
+
+# 6. Konfigurasi database di file .env (sesuaikan DB_DATABASE, DB_USERNAME, dll)
+
+# 7. Jalankan Migrasi dan Seeder
+php artisan migrate --seed
+
+# 8. Buat symlink untuk mengakses folder storage (Wajib untuk gambar poster!)
+php artisan storage:link
+
+# 9. Build aset frontend (Tailwind)
+npm run build
+
+# 10. Jalankan local server
+php artisan serve
+```
+
+## 6. Fungsi dan Fitur Proyek
+
+- **Manajemen Autentikasi & Role**: Registrasi dan Login dengan pemisahan akses yang jelas antara _Admin_ dan _User_ biasa.
+- **Katalog Seminar (Dashboard User)**: Pengguna dapat melihat daftar seminar/event yang tersedia beserta detail, kuota, pembicara, waktu, dan harga (atau Gratis).
+- **Booking Tiket**: Fitur bagi pengguna untuk mendaftar seminar dan mengunggah (upload) bukti pembayaran.
+- **Tiket Saya**: Halaman riwayat pembelian tiket milik _User_ yang menampilkan status pembayaran (Menunggu, Terverifikasi, Ditolak) beserta **QR Code** untuk registrasi/check-in.
+- **Panel Admin**:
+    - CRUD Seminar: Tambah, edit, hapus, dan perbarui poster acara.
+    - Verifikasi Transaksi: Admin dapat melihat bukti pembayaran dari pengguna dan mengubah status tiket menjadi "Terverifikasi" atau "Ditolak".
+
+## 7. Kelebihan Proyek
+
+- **Aman (Secure)**: Menggunakan fitur bawaan Laravel (seperti CSRF protection, Prepared Statements untuk SQL Injection, dan sistem validasi input yang ketat).
+- **QR Code Dinamis**: Penggunaan QR code pada tiket sangat mempermudah proses identifikasi pengguna di kemudian hari.
+- **Manajemen File Terpusat**: Gambar (poster/bukti bayar) diorganisir rapi di dalam `storage` sehingga tidak membebani _public root_.
+
+## 8. Kekurangan Proyek (Saran Pengembangan)
+
+- **Pembayaran Masih Manual**: Sistem _booking_ masih mengharuskan user mengunggah bukti bayar yang harus divalidasi secara manual oleh Admin. Akan jauh lebih efisien bila diintegrasikan dengan Payment Gateway otomatis (seperti Midtrans, Xendit, atau Stripe).
+- **Ketiadaan Sistem _Scanner_**: Walaupun tiket memiliki QR Code, belum ada halaman khusus atau fitur _scanner_ (memanfaatkan kamera perangkat) untuk Admin memindai dan memverifikasi QR Code saat acara berlangsung
