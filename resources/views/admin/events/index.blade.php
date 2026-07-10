@@ -1,4 +1,4 @@
-<!-- <x-app-layout>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             Kelola Data Seminar
@@ -59,4 +59,4 @@
             </div>
         </div>
     </div>
-</x-app-layout> -->
+</x-app-layout> 
